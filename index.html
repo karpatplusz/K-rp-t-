@@ -1,292 +1,670 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="hu" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kárpát+ - Kényelmes online vásárlás</title>
-    <style>
-        :root {
-            --primary: #0B5E20;
-            --primary-light: #52B828;
-            --bg-cream: #FAF8F5;
-            --card-bg: #F2EDE4;
-            --text-dark: #1A3320;
-            --white: #FFFFFF;
+    <title>Kárpát+ | Kényelmes online vásárlás, magyar ügyintézéssel</title>
+    <!-- Tailwind CSS betöltése -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter, Lora, Caveat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <!-- FontAwesome ikonok -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Lora', 'Georgia', 'serif'],
+                        script: ['Caveat', 'cursive'],
+                    },
+                    colors: {
+                        karpat: {
+                            dark: '#0A4D1A',
+                            forest: '#0B5E20',
+                            lime: '#52B828',
+                            limeHover: '#48A822',
+                            cream: '#FAF8F5',
+                            sand: '#F2EDE4',
+                            oak: '#D8C3A5',
+                            oakDark: '#C69C6D',
+                            messenger: '#0084ff'
+                        }
+                    }
+                }
+            }
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: var(--bg-cream);
-            color: var(--text-dark);
-            line-height: 1.6;
-            padding-bottom: 40px;
-        }
-        header {
-            background-color: var(--white);
-            padding: 15px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo-mountain {
-            color: var(--primary);
-            font-weight: 900;
-            font-size: 1.2rem;
-        }
-        .logo-text {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-        .logo-plus {
-            color: var(--primary-light);
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .hero-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(11, 94, 32, 0.06);
-            border: 1px solid rgba(82, 184, 40, 0.2);
-        }
-        .hero-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-        .hero-subtitle {
-            font-style: italic;
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-        .trust-badges {
-            display: flex;
-            justify-content: space-around;
-            font-size: 0.85rem;
-            color: #555;
-            border-top: 1px solid #eee;
-            padding-top: 12px;
-            margin-top: 15px;
-        }
-        .products-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .product-card {
-            background: var(--white);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid #eae5de;
-        }
-        .product-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background-color: var(--card-bg);
-        }
-        .product-content {
-            padding: 20px;
-        }
-        .badge-tag {
-            display: inline-block;
-            background: var(--primary-light);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .product-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-        .product-desc {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-        .btn-messenger {
-            background-color: #0084FF;
-            color: var(--white);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 132, 255, 0.3);
-        }
-        /* ADMIN PANEL STÍLUSOK */
-        #admin-panel {
-            display: none;
-            background: #fff;
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        }
-        #admin-panel h3 { color: var(--primary); margin-bottom: 10px; }
-        .admin-input { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; }
-        .admin-btn { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        footer { text-align: center; margin-top: 40px; font-size: 0.85rem; color: #777; }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-[#FAF8F5] text-[#0A4D1A] font-sans antialiased selection:bg-[#52B828] selection:text-white">
 
-    <header>
-        <div class="logo-area">
-            <span class="logo-mountain">⛰️</span>
-            <span class="logo-text">KÁRPÁT<span class="logo-plus">+</span></span>
+    <!-- Értesítési sáv (Toast üzenetekhez) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- 1. FEJLÉC (HEADER) -->
+    <header class="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#D8C3A5]/60 shadow-xs">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 py-2 flex items-center justify-between gap-4">
+            <!-- Kárpát+ Logó -->
+            <a href="#" class="flex items-center gap-2.5 group focus:outline-none">
+                <img id="header-custom-logo" src="" alt="Kárpát+ logó" class="hidden h-10 w-auto object-contain rounded-lg">
+                <svg id="header-default-logo" class="h-10 w-auto transition-transform duration-300 group-hover:scale-105" viewBox="0 0 245 86" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Kárpát+ logó">
+                    <path d="M18 37L58 14L81 26L116 3L153 26L176 14L216 37L175 21L153 33L116 12L80 33L58 21L18 37Z" fill="#0B5E20"/>
+                    <path d="M98 15L116 3L134 15L123 18L116 11L109 18L98 15Z" fill="#0A4D1A"/>
+                    <text x="8" y="76" fill="#0B5E20" font-family="Inter, sans-serif" font-weight="900" font-size="38" letter-spacing="-1.2">KÁRPÁT</text>
+                    <path d="M196 44H209V57H222V70H209V83H196V70H183V57H196V44Z" fill="#52B828"/>
+                </svg>
+            </a>
+
+            <!-- Navigáció és Titkos Admin Kapcsoló -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="#termekek" class="hidden sm:inline-flex items-center px-3 py-1.5 text-sm font-semibold text-[#0A4D1A] hover:text-[#52B828] transition-colors">
+                    Termékek
+                </a>
+                <a href="#rendeles-menete" class="hidden md:inline-flex items-center px-3 py-1.5 text-sm font-semibold text-[#0A4D1A] hover:text-[#52B828] transition-colors">
+                    Hogyan működik?
+                </a>
+                <!-- Diszkrét tulajdonosi belépés gomb (kóddal védve) -->
+                <button id="toggle-admin-btn" onclick="promptAdminLogin()" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-[#0A4D1A]/60 hover:text-[#0A4D1A] hover:bg-[#F2EDE4] transition-all cursor-pointer" title="Tulajdonosi bejelentkezés">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span id="admin-btn-text" class="hidden sm:inline">Admin</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <div class="container">
-        
-        <!-- Rejtett Admin Szerkesztő -->
-        <div id="admin-panel">
-            <h3>⚙️ Tulajdonosi Szerkesztő</h3>
-            <label>Messenger Felhasználónév:</label>
-            <input type="text" id="adm-messenger" class="admin-input">
-            <label>Termékek (JSON formátum):</label>
-            <textarea id="adm-products" class="admin-input" rows="8"></textarea>
-            <button class="admin-btn" onclick="saveAdminData()">Mentés</button>
-            <button class="admin-btn" style="background:#888;" onclick="document.getElementById('admin-panel').style.display='none'">Bezárás</button>
-        </div>
+    <!-- BEÉPÍTETT REJTETT SZERKESZTŐ PANEL -->
+    <section id="admin-panel" class="hidden bg-[#0A4D1A] text-[#FAF8F5] border-b-4 border-[#52B828] shadow-2xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/15">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#52B828]/20 text-[#8ce665] border border-[#52B828]/40 mb-2">
+                        <i class="fa-solid fa-wrench"></i> Tulajdonosi vezérlőpult (0710)
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white">Kárpát+ Webshop beállítások és termékkezelés</h2>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="exportShopData()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors cursor-pointer">
+                        <i class="fa-solid fa-download mr-1"></i> Adatok mentése (JSON)
+                    </button>
+                    <button onclick="resetToDefaults()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-red-900/70 text-emerald-100 border border-white/20 transition-colors cursor-pointer">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Alaphelyzet
+                    </button>
+                    <button onclick="toggleAdminPanel(false)" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#FAF8F5] text-[#0A4D1A] hover:bg-[#F2EDE4] transition-colors cursor-pointer">
+                        Bezárás <i class="fa-solid fa-xmark ml-1"></i>
+                    </button>
+                </div>
+            </div>
 
-        <div class="hero-card">
-            <div class="hero-title">Kényelmes online vásárlás, magyar ügyintézéssel.</div>
-            <div class="hero-subtitle">Praktikus dolgok. Jó ötletek. Neked.</div>
-            <div class="trust-badges">
-                <span>⚡ Gyors szállítás</span>
-                <span>🇭🇺 Magyar ügyintézés</span>
-                <span>🛡️ Megbízható bolt</span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
+                <!-- Bal oszlop: Messenger & Alapadatok -->
+                <div class="lg:col-span-5 bg-[#0B5E20] p-5 rounded-2xl border border-white/15 space-y-4 h-fit">
+                    <h3 class="font-bold text-lg flex items-center gap-2 text-[#8ce665]">
+                        <i class="fa-brands fa-facebook-messenger"></i> Messenger és bolt adatok
+                    </h3>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
+                            Messenger felhasználónév *
+                        </label>
+                        <div class="flex rounded-xl overflow-hidden border border-white/25 focus-within:border-[#52B828] bg-[#073812]">
+                            <span class="px-3 py-2.5 bg-black/25 text-emerald-200/80 text-sm font-mono select-none border-r border-white/15">
+                                m.me/
+                            </span>
+                            <input type="text" id="setting-messenger-user" placeholder="pl. karpatplusz" class="w-full px-3 py-2.5 bg-transparent text-white text-sm focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
+                            Logó kép URL (opcionális)
+                        </label>
+                        <input type="url" id="setting-logo-url" placeholder="https://..." class="w-full px-3.5 py-2 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828] mb-2">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
+                            Ügyfélszolgálati info
+                        </label>
+                        <input type="text" id="setting-contact-info" placeholder="Hétfő–Szombat 8:00–18:00" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                    </div>
+                    <button onclick="saveShopSettings()" class="w-full py-2.5 px-4 rounded-xl bg-[#52B828] hover:bg-[#48A822] text-white font-bold text-sm transition-colors shadow-md cursor-pointer">
+                        <i class="fa-solid fa-check mr-1.5"></i> Beállítások mentése
+                    </button>
+                </div>
+
+                <!-- Jobb oszlop: Termék hozzáadása -->
+                <div class="lg:col-span-7 bg-[#0B5E20] p-5 rounded-2xl border border-white/15">
+                    <h3 id="product-form-title" class="font-bold text-lg flex items-center gap-2 text-[#8ce665] mb-4">
+                        <i class="fa-solid fa-plus-circle"></i> Új termék hozzáadása
+                    </h3>
+                    <form id="product-form" onsubmit="handleProductSubmit(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="hidden" id="edit-product-id">
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Termék neve *</label>
+                            <input type="text" id="prod-name" required placeholder="pl. Bambusz rendszerező" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Ár (Ft) *</label>
+                            <input type="number" id="prod-price" required min="1" placeholder="pl. 4990" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Jelvény (opcionális)</label>
+                            <input type="text" id="prod-badge" placeholder="pl. Népszerű" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Kép URL (opcionális)</label>
+                            <input type="url" id="prod-image" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Leírás *</label>
+                            <textarea id="prod-desc" rows="2" required placeholder="Termék részletes leírása..." class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]"></textarea>
+                        </div>
+
+                        <div class="sm:col-span-2 flex items-center gap-3 pt-1">
+                            <button type="submit" id="prod-submit-btn" class="flex-1 py-2.5 px-5 rounded-xl bg-[#52B828] hover:bg-[#48A822] text-white font-bold text-sm transition-colors shadow-md cursor-pointer">
+                                <i class="fa-solid fa-save mr-1.5"></i> Termék mentése
+                            </button>
+                            <button type="button" id="prod-cancel-edit-btn" onclick="cancelEditProduct()" class="hidden py-2.5 px-4 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-sm transition-colors cursor-pointer">
+                                Mégse
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="products-grid" id="products-container"></div>
+    <!-- 2. ARCULATI / HERO SZEKCIÓ -->
+    <section class="bg-gradient-to-b from-[#F2EDE4] to-[#FAF8F5] border-b border-[#D8C3A5]/50 py-5 sm:py-7">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="bg-white/90 rounded-3xl border border-[#D8C3A5]/80 shadow-xs px-5 py-5 sm:px-8 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+                <!-- Logó -->
+                <div class="shrink-0 flex items-center justify-center">
+                    <img id="hero-custom-logo" src="" alt="Kárpát+ logó" class="hidden max-h-24 sm:max-h-28 w-auto object-contain rounded-xl">
+                    <svg id="hero-default-logo" class="w-48 sm:w-56 h-auto" viewBox="0 0 360 132" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Kárpát+">
+                        <path d="M48 54L96 26L126 39L180 6L232 38L262 23L312 54L260 32L232 47L180 18L127 48L96 35L48 54Z" fill="#0B5E20"/>
+                        <path d="M156 21L180 6L204 21L190 24L180 16L170 24L156 21Z" fill="#0A4D1A"/>
+                        <text x="24" y="114" fill="#0B5E20" font-family="Inter, sans-serif" font-weight="900" font-size="56" letter-spacing="-1.5">KÁRPÁT</text>
+                        <path d="M292 68H310V86H328V104H310V122H292V104H274V86H292V68Z" fill="#52B828"/>
+                    </svg>
+                </div>
 
-        <footer>
-            <p>&copy; 2026 Kárpát+. Minden jog fenntartva.</p>
-        </footer>
+                <!-- Szlogenek -->
+                <div class="text-center md:text-left flex-1">
+                    <h1 class="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-[#0A4D1A] leading-snug">
+                        Kényelmes online vásárlás, magyar ügyintézéssel.
+                    </h1>
+                    <div class="mt-1 inline-block relative">
+                        <p class="font-script text-2xl sm:text-3xl font-bold text-[#0B5E20] tracking-wide">
+                            Praktikus dolgok. Jó ötletek. Neked.
+                        </p>
+                        <svg class="w-full h-3 -mt-1 text-[#52B828]" viewBox="0 0 360 18" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                            <path d="M4 14C110 3 245 2 356 11C245 7 112 9 4 14Z" fill="#52B828" stroke="#52B828" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
 
+                <!-- Bizalmi info -->
+                <div class="hidden lg:flex flex-col items-end shrink-0 text-right border-l border-[#D8C3A5]/60 pl-6">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0B5E20] bg-[#F2EDE4] px-3 py-1.5 rounded-full">
+                        <i class="fa-brands fa-facebook-messenger text-[#0084ff]"></i> Azonnali rendelés üzenetben
+                    </span>
+                    <span class="text-xs text-[#0A4D1A]/70 mt-2">Válassz terméket alább!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. TERMÉKKATALÓGUS -->
+    <main id="termekek" class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-14 sm:pt-8 sm:pb-18">
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <!-- Termékkártyák -->
+        </div>
+    </main>
+
+    <!-- 4. HOGYAN MŰKÖDIK -->
+    <section id="rendeles-menete" class="bg-[#F2EDE4] border-t border-[#D8C3A5]/60 py-14 sm:py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-[#52B828]">Egyszerű, gyors, megbízható</span>
+                <h2 class="font-serif text-2xl sm:text-4xl font-bold text-[#0A4D1A] mt-1">Hogyan zajlik a rendelés?</h2>
+                <p class="text-[#0A4D1A]/80 text-sm sm:text-base mt-2">
+                    Nincs kosár-elhagyás vagy bonyolult űrlap – minden kérdésedre magyarul válaszolunk üzenetben.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <div class="bg-[#FAF8F5] rounded-3xl p-6 sm:p-8 border border-[#D8C3A5]/80 shadow-xs text-center">
+                    <div class="w-13 h-13 rounded-2xl bg-[#0B5E20] text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 shadow-md">1</div>
+                    <h3 class="font-bold text-lg text-[#0A4D1A] mb-2">Válaszd ki a terméket</h3>
+                    <p class="text-sm text-[#0A4D1A]/75 leading-relaxed">Nézd át a kínálatot, állítsd be a darabszámot, és ellenőrizd a végösszeget közvetlenül a kártyán.</p>
+                </div>
+                <div class="bg-[#FAF8F5] rounded-3xl p-6 sm:p-8 border border-[#D8C3A5]/80 shadow-xs text-center">
+                    <div class="w-13 h-13 rounded-2xl bg-[#52B828] text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 shadow-md">2</div>
+                    <h3 class="font-bold text-lg text-[#0A4D1A] mb-2">Kattints a Messenger gombra</h3>
+                    <p class="text-sm text-[#0A4D1A]/75 leading-relaxed">A gomb megnyitja a beszélgetést az előre összeállított üzenettel – csak nyomj a küldésre!</p>
+                </div>
+                <div class="bg-[#FAF8F5] rounded-3xl p-6 sm:p-8 border border-[#D8C3A5]/80 shadow-xs text-center">
+                    <div class="w-13 h-13 rounded-2xl bg-[#C69C6D] text-white font-extrabold text-xl flex items-center justify-center mx-auto mb-5 shadow-md">3</div>
+                    <h3 class="font-bold text-lg text-[#0A4D1A] mb-2">Magyar ügyintézés</h3>
+                    <p class="text-sm text-[#0A4D1A]/75 leading-relaxed">Magyarul egyeztetjük a szállítási adatokat, és rövid határidővel útnak indítjuk a csomagod.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. LÁBLÉC -->
+    <footer class="relative bg-[#0B5E20] text-[#FAF8F5] pt-16 sm:pt-20 pb-10 overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none">
+            <svg class="relative block w-full h-12 sm:h-16" viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <rect width="1440" height="90" fill="#F2EDE4"/>
+                <path d="M0 58C320 20 620 88 1020 42C1220 18 1350 28 1440 38V90H0V58Z" fill="#52B828"/>
+                <path d="M0 32C360 -12 680 78 1080 56C1260 46 1370 54 1440 62V90H0V32Z" fill="#0B5E20"/>
+            </svg>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-8 border-b border-white/15">
+                <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                    <svg class="h-12 w-auto" viewBox="0 0 230 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 36L56 17L76 26L113 4L148 25L168 15L204 36L167 21L148 31L113 12L77 32L56 23L22 36Z" fill="#FAF8F5"/>
+                        <text x="10" y="75" fill="#FAF8F5" font-family="Inter, sans-serif" font-weight="900" font-size="37" letter-spacing="-1.2">KÁRPÁT</text>
+                        <path d="M189 45H201V57H213V69H201V81H189V69H177V57H189V45Z" fill="#52B828"/>
+                    </svg>
+                    <p class="font-script text-2xl text-[#8ce665] mt-1">Praktikus dolgok. Jó ötletek. Neked.</p>
+                </div>
+
+                <div class="flex flex-col items-center md:items-end gap-3">
+                    <button onclick="openDirectMessengerChat()" class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-[#52B828] hover:bg-[#48A822] text-white font-bold text-sm shadow-md transition-all cursor-pointer">
+                        <i class="fa-brands fa-facebook-messenger text-lg"></i>
+                        <span>Kérdésed van? Írj Messengeren!</span>
+                    </button>
+                    <p id="footer-contact-text" class="text-xs text-emerald-200/80">Hétfő–Szombat 8:00–18:00 • 100% magyar ügyintézés</p>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-emerald-200/70">
+                <p>&copy; <span id="current-year"></span> Kárpát+ • Kényelmes online vásárlás, magyar ügyintézéssel.</p>
+                <p>Minden jog fenntartva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODÁLIS ABLAK -->
+    <div id="order-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-[#072b10]/75 backdrop-blur-xs">
+        <div class="bg-[#FAF8F5] rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-[#D8C3A5]">
+            <div class="bg-gradient-to-r from-[#0A4D1A] to-[#0B5E20] px-6 py-5 text-white flex items-center justify-between border-b-2 border-[#52B828]">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-[#52B828] text-white flex items-center justify-center text-2xl">
+                        <i class="fa-brands fa-facebook-messenger"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg leading-tight">Rendelés elküldése Messengeren</h3>
+                        <p class="text-xs text-emerald-200">Címzett: <span id="modal-recipient" class="font-bold text-white">@karpatplusz</span></p>
+                    </div>
+                </div>
+                <button onclick="closeOrderModal()" class="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-5">
+                <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-white border border-[#D8C3A5]/80">
+                    <img id="modal-prod-img" src="" alt="Termék" class="w-16 h-16 rounded-xl object-cover bg-[#F2EDE4] shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 id="modal-prod-name" class="font-bold text-[#0A4D1A] text-sm sm:text-base truncate">Termék neve</h4>
+                        <p class="text-xs text-[#0A4D1A]/70 mt-0.5">Mennyiség: <span id="modal-prod-qty" class="font-bold">1 db</span></p>
+                        <p class="text-sm font-extrabold text-[#0B5E20] mt-1">Végösszeg: <span id="modal-prod-total">0 Ft</span></p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-[#0A4D1A]/70 mb-1.5">Rendelési üzenet:</label>
+                    <textarea id="modal-message-text" rows="4" readonly class="w-full p-3.5 rounded-2xl bg-white border border-[#D8C3A5] text-[#0A4D1A] text-sm font-medium focus:outline-none resize-none"></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-1">
+                    <a id="modal-messenger-link" href="#" target="_blank" rel="noopener noreferrer" onclick="copyOrderMessage()" class="flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#52B828] hover:bg-[#48A822] text-white font-bold text-base shadow-lg shadow-[#52B828]/25 transition-all">
+                        <i class="fa-brands fa-facebook-messenger text-xl"></i>
+                        <span>Megnyitás Messengerben</span>
+                    </a>
+                    <button type="button" onclick="closeOrderModal()" class="px-5 py-3.5 rounded-2xl bg-[#F2EDE4] hover:bg-[#e5dccb] text-[#0A4D1A] font-semibold text-sm transition-colors cursor-pointer">
+                        Vissza
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIKA -->
     <script>
-        // Alapértelmezett adatok
-        let messengerUser = localStorage.getItem('kp_messenger') || "itt_a_neved";
-        let products = JSON.parse(localStorage.getItem('kp_products')) || [
+        const STORAGE_KEYS = {
+            SETTINGS: 'karpatplus_brand_settings_v4',
+            PRODUCTS: 'karpatplus_brand_products_v4'
+        };
+
+        const DEFAULT_SETTINGS = {
+            messengerUsername: 'karpatplusz',
+            logoUrl: '',
+            contactInfo: 'Hétfő–Szombat 8:00–18:00 • 100% magyar ügyintézés'
+        };
+
+        const DEFAULT_PRODUCTS = [
             {
-                id: 1,
-                name: "Bambusz Fókrendszerező",
-                description: "Bambusz kihúzható konyhai fiókrendszerező evőeszközökhöz és apróságokhoz.",
-                price: "4 990 Ft",
-                badge: "Népszerű",
-                image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80"
+                id: 'kp-1',
+                name: 'Bambusz Fókrendszerező',
+                price: 4990,
+                badge: 'Népszerű',
+                image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+                description: 'Bambusz kihúzható konyhai fiókrendszerező evőeszközökhöz és apróságokhoz.'
             },
             {
-                id: 2,
-                name: "Solar Light 6COB Kültéri Lámpa",
-                description: "Mozgásérzékelős napelemes kültéri fali LED lámpa kertbe, udvarra, teraszra.",
-                price: "3 490 Ft",
-                badge: "Újdonság",
-                image: "https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=600&q=80"
+                id: 'kp-2',
+                name: 'Solar Light 6COB Kültéri Lámpa',
+                price: 3490,
+                badge: 'Újdonság',
+                image: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=600&q=80',
+                description: 'Mozgásérzékelős napelemes kültéri fali LED lámpa kertbe, udvarra, teraszra.'
             }
         ];
 
-        // Titkos kód ellenőrzése a címsorban (?admin=0710)
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('admin') === '0710') {
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('adm-messenger').value = messengerUser;
-            document.getElementById('adm-products').value = JSON.stringify(products, null, 2);
-        }
+        let settings = { ...DEFAULT_SETTINGS };
+        let products = [];
+        let quantities = {};
+        let isAdminOpen = false;
 
-        function saveAdminData() {
-            try {
-                messengerUser = document.getElementById('adm-messenger').value;
-                products = JSON.parse(document.getElementById('adm-products').value);
-                localStorage.setItem('kp_messenger', messengerUser);
-                localStorage.setItem('kp_products', JSON.stringify(products));
-                alert('Sikeres mentés!');
-                location.reload();
-            } catch (e) {
-                alert('Hiba a JSON formátumban! Ellenőrizd a zárójeleket és idézőjeleket.');
+        function initApp() {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            loadFromStorage();
+            products.forEach(p => { if (!quantities[p.id]) quantities[p.id] = 1; });
+            applySettingsToUI();
+            renderProducts();
+
+            // Ellenőrizzük a címsort (?admin=0710)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === '0710') {
+                toggleAdminPanel(true);
             }
         }
 
+        function loadFromStorage() {
+            try {
+                const savedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+                if (savedSettings) settings = { ...DEFAULT_SETTINGS, ...JSON.parse(savedSettings) };
+
+                const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+                if (savedProducts) {
+                    const parsed = JSON.parse(savedProducts);
+                    products = Array.isArray(parsed) && parsed.length > 0 ? parsed : [...DEFAULT_PRODUCTS];
+                } else {
+                    products = [...DEFAULT_PRODUCTS];
+                }
+            } catch (err) {
+                settings = { ...DEFAULT_SETTINGS };
+                products = [...DEFAULT_PRODUCTS];
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+            localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+        }
+
+        function applySettingsToUI() {
+            document.getElementById('setting-messenger-user').value = settings.messengerUsername || '';
+            document.getElementById('setting-logo-url').value = settings.logoUrl || '';
+            document.getElementById('setting-contact-info').value = settings.contactInfo || '';
+
+            const footerContact = document.getElementById('footer-contact-text');
+            if (footerContact && settings.contactInfo) footerContact.textContent = settings.contactInfo;
+
+            const headerCustom = document.getElementById('header-custom-logo');
+            const headerDefault = document.getElementById('header-default-logo');
+            const heroCustom = document.getElementById('hero-custom-logo');
+            const heroDefault = document.getElementById('hero-default-logo');
+
+            if (settings.logoUrl && settings.logoUrl.trim() !== '') {
+                headerCustom.src = settings.logoUrl;
+                headerCustom.classList.remove('hidden');
+                headerDefault.classList.add('hidden');
+                heroCustom.src = settings.logoUrl;
+                heroCustom.classList.remove('hidden');
+                heroDefault.classList.add('hidden');
+            } else {
+                headerCustom.classList.add('hidden');
+                headerDefault.classList.remove('hidden');
+                heroCustom.classList.add('hidden');
+                heroDefault.classList.remove('hidden');
+            }
+        }
+
+        function promptAdminLogin() {
+            const pwd = prompt('Add meg a tulajdonosi kódot:');
+            if (pwd === '0710') {
+                toggleAdminPanel(true);
+                showToast('Üdv a tulajdonosi felületen!', 'success');
+            } else if (pwd !== null) {
+                showToast('Hibás kód!', 'error');
+            }
+        }
+
+        function toggleAdminPanel(forceOpen) {
+            isAdminOpen = forceOpen !== undefined ? forceOpen : !isAdminOpen;
+            const panel = document.getElementById('admin-panel');
+            if (isAdminOpen) {
+                panel.classList.remove('hidden');
+                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                panel.classList.add('hidden');
+            }
+            renderProducts();
+        }
+
+        function saveShopSettings() {
+            const userInput = document.getElementById('setting-messenger-user').value.trim().replace(/^@/, '');
+            if (!userInput) {
+                showToast('Add meg a Messenger nevet!', 'error');
+                return;
+            }
+            settings.messengerUsername = userInput;
+            settings.logoUrl = document.getElementById('setting-logo-url').value.trim();
+            settings.contactInfo = document.getElementById('setting-contact-info').value.trim() || DEFAULT_SETTINGS.contactInfo;
+            saveToStorage();
+            applySettingsToUI();
+            showToast('Beállítások mentve!', 'success');
+        }
+
         function renderProducts() {
-            const container = document.getElementById('products-container');
-            container.innerHTML = '';
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
 
-            products.forEach(p => {
-                const messageText = encodeURIComponent(`Szia! Szeretném megrendelni a következőt:\n\n📦 *${p.name}*\n💰 Ár: ${p.price}\n\nKérlek írd meg a további részleteket!`);
-                const messengerLink = `https://m.me/${messengerUser}?text=${messageText}`;
+            products.forEach(product => {
+                const qty = quantities[product.id] || 1;
+                const totalPrice = product.price * qty;
+                const fallbackImg = `https://placehold.co/600x450/0B5E20/FAF8F5?text=${encodeURIComponent(product.name)}`;
+                const imgSrc = product.image && product.image.trim() !== '' ? product.image : fallbackImg;
 
-                const card = document.createElement('div');
-                card.className = 'product-card';
+                const card = document.createElement('article');
+                card.className = 'bg-white rounded-3xl border border-[#D8C3A5]/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group';
+
                 card.innerHTML = `
-                    <img src="${p.image}" alt="${p.name}" class="product-img">
-                    <div class="product-content">
-                        ${p.badge ? `<span class="badge-tag">${p.badge}</span>` : ''}
-                        <div class="product-title">${p.name}</div>
-                        <div class="product-desc">${p.description}</div>
-                        <div class="product-footer">
-                            <div class="product-price">${p.price}</div>
-                            <a href="${messengerLink}" target="_blank" class="btn-messenger">
-                                💬 Rendelés Messengeren
-                            </a>
+                    <div class="relative aspect-[4/3] bg-[#F2EDE4] overflow-hidden">
+                        <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(product.name)}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        ${product.badge ? `<span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wide bg-[#52B828] text-white shadow-sm">${escapeHtml(product.badge)}</span>` : ''}
+                        
+                        ${isAdminOpen ? `
+                            <div class="absolute top-3.5 right-3.5 flex items-center gap-1.5 bg-[#0A4D1A]/95 p-1.5 rounded-xl border border-white/20 shadow-lg">
+                                <button type="button" onclick="startEditProduct('${product.id}')" class="w-8 h-8 rounded-lg bg-[#52B828] text-white flex items-center justify-center text-xs cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                                <button type="button" onclick="deleteProduct('${product.id}')" class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-bold text-lg sm:text-xl text-[#0A4D1A] leading-snug">${escapeHtml(product.name)}</h3>
+                        <p class="text-sm text-[#0A4D1A]/75 mt-2.5 leading-relaxed flex-1">${escapeHtml(product.description)}</p>
+
+                        <div class="mt-6 pt-4 border-t border-[#F2EDE4] flex items-center justify-between gap-3">
+                            <div>
+                                <span class="block text-xs text-[#0A4D1A]/60 font-medium">Egységár: ${formatPrice(product.price)} Ft</span>
+                                <div class="text-2xl font-extrabold text-[#0A4D1A]" id="price-display-${product.id}">
+                                    ${formatPrice(totalPrice)} <span class="text-sm font-bold text-[#0B5E20]">Ft</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center bg-[#F2EDE4] rounded-xl p-1 border border-[#D8C3A5]/80">
+                                <button type="button" onclick="updateQuantity('${product.id}', -1)" class="w-9 h-9 rounded-lg bg-white text-[#0A4D1A] font-bold flex items-center justify-center cursor-pointer">-</button>
+                                <span id="qty-display-${product.id}" class="w-10 text-center font-extrabold text-sm text-[#0A4D1A]">${qty}</span>
+                                <button type="button" onclick="updateQuantity('${product.id}', 1)" class="w-9 h-9 rounded-lg bg-white text-[#0A4D1A] font-bold flex items-center justify-center cursor-pointer">+</button>
+                            </div>
                         </div>
+
+                        <button type="button" onclick="openOrderModal('${product.id}')" class="mt-5 w-full py-3.5 px-5 rounded-2xl bg-[#0B5E20] hover:bg-[#52B828] text-white font-bold text-sm sm:text-base shadow-md flex items-center justify-center gap-2.5 transition-all cursor-pointer">
+                            <i class="fa-brands fa-facebook-messenger text-lg"></i>
+                            <span>Rendelés Messengeren</span>
+                        </button>
                     </div>
                 `;
-                container.appendChild(card);
+                grid.appendChild(card);
             });
         }
 
-        renderProducts();
+        function updateQuantity(productId, delta) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const current = quantities[productId] || 1;
+            const next = Math.max(1, Math.min(99, current + delta));
+            quantities[productId] = next;
+
+            document.getElementById(`qty-display-${productId}`).textContent = next;
+            document.getElementById(`price-display-${productId}`).innerHTML = `${formatPrice(product.price * next)} <span class="text-sm font-bold text-[#0B5E20]">Ft</span>`;
+        }
+
+        function openOrderModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const qty = quantities[product.id] || 1;
+            const total = product.price * qty;
+            const cleanUsername = (settings.messengerUsername || 'karpatplusz').replace(/^@/, '').trim();
+
+            const messageText = `Szia Kárpát+! Szeretném megrendelni a következőt:\n• Termék: ${product.name}\n• Mennyiség: ${qty} db\n• Végösszeg: ${formatPrice(total)} Ft`;
+            const messengerUrl = `https://m.me/${encodeURIComponent(cleanUsername)}?text=${encodeURIComponent(messageText)}`;
+
+            document.getElementById('modal-recipient').textContent = `@${cleanUsername}`;
+            document.getElementById('modal-prod-img').src = product.image;
+            document.getElementById('modal-prod-name').textContent = product.name;
+            document.getElementById('modal-prod-qty').textContent = `${qty} db`;
+            document.getElementById('modal-prod-total').textContent = `${formatPrice(total)} Ft`;
+            document.getElementById('modal-message-text').value = messageText;
+            document.getElementById('modal-messenger-link').href = messengerUrl;
+
+            const modal = document.getElementById('order-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('order-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyOrderMessage() {
+            const textarea = document.getElementById('modal-message-text');
+            textarea.select();
+            try { document.execCommand('copy'); showToast('Üzenet másolva!', 'success'); } catch(e) {}
+        }
+
+        function openDirectMessengerChat() {
+            const cleanUsername = (settings.messengerUsername || 'karpatplusz').replace(/^@/, '').trim();
+            window.open(`https://m.me/${encodeURIComponent(cleanUsername)}?text=Szia! Érdeklődni szeretnék.`, '_blank');
+        }
+
+        function handleProductSubmit(event) {
+            event.preventDefault();
+            const editId = document.getElementById('edit-product-id').value;
+            const name = document.getElementById('prod-name').value.trim();
+            const price = parseInt(document.getElementById('prod-price').value, 10);
+            const badge = document.getElementById('prod-badge').value.trim();
+            const image = document.getElementById('prod-image').value.trim();
+            const description = document.getElementById('prod-desc').value.trim();
+
+            if (editId) {
+                const index = products.findIndex(p => p.id === editId);
+                if (index !== -1) products[index] = { ...products[index], name, price, badge, image, description };
+                showToast('Termék frissítve!', 'success');
+            } else {
+                const newProduct = { id: 'kp-' + Date.now(), name, price, badge, image, description };
+                products.unshift(newProduct);
+                quantities[newProduct.id] = 1;
+                showToast('Termék hozzáadva!', 'success');
+            }
+            saveToStorage();
+            cancelEditProduct();
+            renderProducts();
+        }
+
+        function startEditProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            document.getElementById('edit-product-id').value = product.id;
+            document.getElementById('prod-name').value = product.name;
+            document.getElementById('prod-price').value = product.price;
+            document.getElementById('prod-badge').value = product.badge || '';
+            document.getElementById('prod-image').value = product.image || '';
+            document.getElementById('prod-desc').value = product.description;
+            document.getElementById('prod-cancel-edit-btn').classList.remove('hidden');
+        }
+
+        function cancelEditProduct() {
+            document.getElementById('product-form').reset();
+            document.getElementById('edit-product-id').value = '';
+            document.getElementById('prod-cancel-edit-btn').classList.add('hidden');
+        }
+
+        function deleteProduct(productId) {
+            products = products.filter(p => p.id !== productId);
+            delete quantities[productId];
+            saveToStorage();
+            renderProducts();
+            showToast('Termék törölve.', 'info');
+        }
+
+        function resetToDefaults() {
+            settings = { ...DEFAULT_SETTINGS };
+            products = [...DEFAULT_PRODUCTS];
+            saveToStorage();
+            applySettingsToUI();
+            renderProducts();
+            showToast('Alaphelyzet visszaállítva!', 'info');
+        }
+
+        function exportShopData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({settings, products}, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", "karpatplusz-adatok.json");
+            dlAnchorElem.click();
+        }
+
+        function formatPrice(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+        function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 text-sm font-semibold text-white ${type === 'error' ? 'bg-red-700' : 'bg-[#0B5E20] border border-[#52B828]'}`;
+            toast.innerHTML = `<span>${escapeHtml(message)}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        window.onload = initApp;
     </script>
 </body>
 </html>
