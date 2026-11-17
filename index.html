@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kárpát+ | Kényelmes online vásárlás, magyar ügyintézéssel</title>
-    <!-- Tailwind CSS betöltése -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter, Lora, Caveat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-    <!-- FontAwesome ikonok -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
         tailwind.config = {
@@ -41,13 +38,11 @@
 </head>
 <body class="bg-[#FAF8F5] text-[#0A4D1A] font-sans antialiased selection:bg-[#52B828] selection:text-white">
 
-    <!-- Értesítési sáv (Toast üzenetekhez) -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- 1. FEJLÉC (HEADER) -->
+    <!-- 1. FEJLÉC -->
     <header class="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#D8C3A5]/60 shadow-xs">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 py-2 flex items-center justify-between gap-4">
-            <!-- Kárpát+ Logó -->
             <a href="#" class="flex items-center gap-2.5 group focus:outline-none">
                 <img id="header-custom-logo" src="" alt="Kárpát+ logó" class="hidden h-10 w-auto object-contain rounded-lg">
                 <svg id="header-default-logo" class="h-10 w-auto transition-transform duration-300 group-hover:scale-105" viewBox="0 0 245 86" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Kárpát+ logó">
@@ -58,7 +53,6 @@
                 </svg>
             </a>
 
-            <!-- Navigáció és Titkos Admin Kapcsoló -->
             <div class="flex items-center gap-2 sm:gap-3">
                 <a href="#termekek" class="hidden sm:inline-flex items-center px-3 py-1.5 text-sm font-semibold text-[#0A4D1A] hover:text-[#52B828] transition-colors">
                     Termékek
@@ -66,7 +60,6 @@
                 <a href="#rendeles-menete" class="hidden md:inline-flex items-center px-3 py-1.5 text-sm font-semibold text-[#0A4D1A] hover:text-[#52B828] transition-colors">
                     Hogyan működik?
                 </a>
-                <!-- Diszkrét tulajdonosi belépés gomb (kóddal védve) -->
                 <button id="toggle-admin-btn" onclick="promptAdminLogin()" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-[#0A4D1A]/60 hover:text-[#0A4D1A] hover:bg-[#F2EDE4] transition-all cursor-pointer" title="Tulajdonosi bejelentkezés">
                     <i class="fa-solid fa-lock text-xs"></i>
                     <span id="admin-btn-text" class="hidden sm:inline">Admin</span>
@@ -81,13 +74,13 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/15">
                 <div>
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#52B828]/20 text-[#8ce665] border border-[#52B828]/40 mb-2">
-                        <i class="fa-solid fa-wrench"></i> Tulajdonosi vezérlőpult (0710)
+                        <i class="fa-solid fa-wrench"></i> Tulajdonosi vezérlőpult
                     </span>
                     <h2 class="text-xl sm:text-2xl font-bold text-white">Kárpát+ Webshop beállítások és termékkezelés</h2>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     <button onclick="exportShopData()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors cursor-pointer">
-                        <i class="fa-solid fa-download mr-1"></i> Adatok mentése (JSON)
+                        <i class="fa-solid fa-download mr-1"></i> Adatok mentése
                     </button>
                     <button onclick="resetToDefaults()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-red-900/70 text-emerald-100 border border-white/20 transition-colors cursor-pointer">
                         <i class="fa-solid fa-rotate-left mr-1"></i> Alaphelyzet
@@ -99,10 +92,10 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
-                <!-- Bal oszlop: Messenger & Alapadatok -->
+                <!-- Bal oszlop: Messenger, Pénznem & Alapadatok -->
                 <div class="lg:col-span-5 bg-[#0B5E20] p-5 rounded-2xl border border-white/15 space-y-4 h-fit">
                     <h3 class="font-bold text-lg flex items-center gap-2 text-[#8ce665]">
-                        <i class="fa-brands fa-facebook-messenger"></i> Messenger és bolt adatok
+                        <i class="fa-brands fa-facebook-messenger"></i> Bolt és pénznem beállítások
                     </h3>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
@@ -117,9 +110,15 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
+                            Pénznem jelölése (pl. UAH, грн, EUR) *
+                        </label>
+                        <input type="text" id="setting-currency" placeholder="pl. UAH" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
                             Logó kép URL (opcionális)
                         </label>
-                        <input type="url" id="setting-logo-url" placeholder="https://..." class="w-full px-3.5 py-2 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828] mb-2">
+                        <input type="url" id="setting-logo-url" placeholder="https://..." class="w-full px-3.5 py-2 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-100/80 mb-1.5">
@@ -142,12 +141,12 @@
 
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-semibold text-emerald-100 mb-1">Termék neve *</label>
-                            <input type="text" id="prod-name" required placeholder="pl. Bambusz rendszerező" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                            <input type="text" id="prod-name" required placeholder="pl. Solar Light 6COB lámpa" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Ár (Ft) *</label>
-                            <input type="number" id="prod-price" required min="1" placeholder="pl. 4990" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Ár (szám) *</label>
+                            <input type="number" id="prod-price" required min="1" placeholder="pl. 350" class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
                         </div>
 
                         <div>
@@ -156,8 +155,9 @@
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Kép URL (opcionális)</label>
-                            <input type="url" id="prod-image" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                            <label class="block text-xs font-semibold text-emerald-100 mb-1">Termék kép URL (Postimages Direct link) *</label>
+                            <input type="url" id="prod-image" placeholder="https://i.postimg.cc/..." class="w-full px-3.5 py-2.5 rounded-xl bg-[#073812] border border-white/25 text-white text-sm focus:outline-none focus:border-[#52B828]">
+                            <p class="text-[11px] text-emerald-200/75 mt-1">Tipp: Töltsd fel a fotót a <b>postimages.org</b> oldalra, és másold ide a "Direct link" sort!</p>
                         </div>
 
                         <div class="sm:col-span-2">
@@ -183,7 +183,6 @@
     <section class="bg-gradient-to-b from-[#F2EDE4] to-[#FAF8F5] border-b border-[#D8C3A5]/50 py-5 sm:py-7">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="bg-white/90 rounded-3xl border border-[#D8C3A5]/80 shadow-xs px-5 py-5 sm:px-8 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
-                <!-- Logó -->
                 <div class="shrink-0 flex items-center justify-center">
                     <img id="hero-custom-logo" src="" alt="Kárpát+ logó" class="hidden max-h-24 sm:max-h-28 w-auto object-contain rounded-xl">
                     <svg id="hero-default-logo" class="w-48 sm:w-56 h-auto" viewBox="0 0 360 132" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Kárpát+">
@@ -194,7 +193,6 @@
                     </svg>
                 </div>
 
-                <!-- Szlogenek -->
                 <div class="text-center md:text-left flex-1">
                     <h1 class="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-[#0A4D1A] leading-snug">
                         Kényelmes online vásárlás, magyar ügyintézéssel.
@@ -209,7 +207,6 @@
                     </div>
                 </div>
 
-                <!-- Bizalmi info -->
                 <div class="hidden lg:flex flex-col items-end shrink-0 text-right border-l border-[#D8C3A5]/60 pl-6">
                     <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0B5E20] bg-[#F2EDE4] px-3 py-1.5 rounded-full">
                         <i class="fa-brands fa-facebook-messenger text-[#0084ff]"></i> Azonnali rendelés üzenetben
@@ -319,7 +316,7 @@
                     <div class="flex-1 min-w-0">
                         <h4 id="modal-prod-name" class="font-bold text-[#0A4D1A] text-sm sm:text-base truncate">Termék neve</h4>
                         <p class="text-xs text-[#0A4D1A]/70 mt-0.5">Mennyiség: <span id="modal-prod-qty" class="font-bold">1 db</span></p>
-                        <p class="text-sm font-extrabold text-[#0B5E20] mt-1">Végösszeg: <span id="modal-prod-total">0 Ft</span></p>
+                        <p class="text-sm font-extrabold text-[#0B5E20] mt-1">Végösszeg: <span id="modal-prod-total">0 UAH</span></p>
                     </div>
                 </div>
 
@@ -344,12 +341,13 @@
     <!-- JAVASCRIPT LOGIKA -->
     <script>
         const STORAGE_KEYS = {
-            SETTINGS: 'karpatplus_brand_settings_v4',
-            PRODUCTS: 'karpatplus_brand_products_v4'
+            SETTINGS: 'karpatplus_brand_settings_v5',
+            PRODUCTS: 'karpatplus_brand_products_v5'
         };
 
         const DEFAULT_SETTINGS = {
             messengerUsername: 'karpatplusz',
+            currency: 'UAH',
             logoUrl: '',
             contactInfo: 'Hétfő–Szombat 8:00–18:00 • 100% magyar ügyintézés'
         };
@@ -357,19 +355,19 @@
         const DEFAULT_PRODUCTS = [
             {
                 id: 'kp-1',
-                name: 'Bambusz Fókrendszerező',
-                price: 4990,
+                name: 'Solar Light 6COB Kültéri Lámpa',
+                price: 350,
                 badge: 'Népszerű',
-                image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
-                description: 'Bambusz kihúzható konyhai fiókrendszerező evőeszközökhöz és apróságokhoz.'
+                image: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=600&q=80',
+                description: 'Mozgásérzékelős napelemes kültéri fali LED lámpa kertbe, udvarra, teraszra. Gyors rögzítés.'
             },
             {
                 id: 'kp-2',
-                name: 'Solar Light 6COB Kültéri Lámpa',
-                price: 3490,
-                badge: 'Újdonság',
-                image: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=600&q=80',
-                description: 'Mozgásérzékelős napelemes kültéri fali LED lámpa kertbe, udvarra, teraszra.'
+                name: '3 szintes összecsukható ruhaszárító állvány',
+                price: 980,
+                badge: 'Praktikus',
+                image: 'https://placehold.co/600x450/0B5E20/FAF8F5?text=Ruhasz%C3%A1r%C3%ADt%C3%B3+%C3%81llv%C3%A1ny',
+                description: 'Helytakarékos, gurulós 3 szintes ruhaszárító állvány nagy kapacitással.'
             }
         ];
 
@@ -385,7 +383,6 @@
             applySettingsToUI();
             renderProducts();
 
-            // Ellenőrizzük a címsort (?admin=0710)
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('admin') === '0710') {
                 toggleAdminPanel(true);
@@ -417,6 +414,7 @@
 
         function applySettingsToUI() {
             document.getElementById('setting-messenger-user').value = settings.messengerUsername || '';
+            document.getElementById('setting-currency').value = settings.currency || 'UAH';
             document.getElementById('setting-logo-url').value = settings.logoUrl || '';
             document.getElementById('setting-contact-info').value = settings.contactInfo || '';
 
@@ -467,21 +465,25 @@
 
         function saveShopSettings() {
             const userInput = document.getElementById('setting-messenger-user').value.trim().replace(/^@/, '');
+            const currInput = document.getElementById('setting-currency').value.trim() || 'UAH';
             if (!userInput) {
                 showToast('Add meg a Messenger nevet!', 'error');
                 return;
             }
             settings.messengerUsername = userInput;
+            settings.currency = currInput;
             settings.logoUrl = document.getElementById('setting-logo-url').value.trim();
             settings.contactInfo = document.getElementById('setting-contact-info').value.trim() || DEFAULT_SETTINGS.contactInfo;
             saveToStorage();
             applySettingsToUI();
+            renderProducts();
             showToast('Beállítások mentve!', 'success');
         }
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
+            const curr = settings.currency || 'UAH';
 
             products.forEach(product => {
                 const qty = quantities[product.id] || 1;
@@ -511,9 +513,9 @@
 
                         <div class="mt-6 pt-4 border-t border-[#F2EDE4] flex items-center justify-between gap-3">
                             <div>
-                                <span class="block text-xs text-[#0A4D1A]/60 font-medium">Egységár: ${formatPrice(product.price)} Ft</span>
+                                <span class="block text-xs text-[#0A4D1A]/60 font-medium">Egységár: ${formatPrice(product.price)} ${escapeHtml(curr)}</span>
                                 <div class="text-2xl font-extrabold text-[#0A4D1A]" id="price-display-${product.id}">
-                                    ${formatPrice(totalPrice)} <span class="text-sm font-bold text-[#0B5E20]">Ft</span>
+                                    ${formatPrice(totalPrice)} <span class="text-sm font-bold text-[#0B5E20]">${escapeHtml(curr)}</span>
                                 </div>
                             </div>
 
@@ -540,9 +542,10 @@
             const current = quantities[productId] || 1;
             const next = Math.max(1, Math.min(99, current + delta));
             quantities[productId] = next;
+            const curr = settings.currency || 'UAH';
 
             document.getElementById(`qty-display-${productId}`).textContent = next;
-            document.getElementById(`price-display-${productId}`).innerHTML = `${formatPrice(product.price * next)} <span class="text-sm font-bold text-[#0B5E20]">Ft</span>`;
+            document.getElementById(`price-display-${productId}`).innerHTML = `${formatPrice(product.price * next)} <span class="text-sm font-bold text-[#0B5E20]">${escapeHtml(curr)}</span>`;
         }
 
         function openOrderModal(productId) {
@@ -550,16 +553,17 @@
             if (!product) return;
             const qty = quantities[product.id] || 1;
             const total = product.price * qty;
+            const curr = settings.currency || 'UAH';
             const cleanUsername = (settings.messengerUsername || 'karpatplusz').replace(/^@/, '').trim();
 
-            const messageText = `Szia Kárpát+! Szeretném megrendelni a következőt:\n• Termék: ${product.name}\n• Mennyiség: ${qty} db\n• Végösszeg: ${formatPrice(total)} Ft`;
+            const messageText = `Szia Kárpát+! Szeretném megrendelni a következőt:\n• Termék: ${product.name}\n• Mennyiség: ${qty} db\n• Végösszeg: ${formatPrice(total)} ${curr}`;
             const messengerUrl = `https://m.me/${encodeURIComponent(cleanUsername)}?text=${encodeURIComponent(messageText)}`;
 
             document.getElementById('modal-recipient').textContent = `@${cleanUsername}`;
             document.getElementById('modal-prod-img').src = product.image;
             document.getElementById('modal-prod-name').textContent = product.name;
             document.getElementById('modal-prod-qty').textContent = `${qty} db`;
-            document.getElementById('modal-prod-total').textContent = `${formatPrice(total)} Ft`;
+            document.getElementById('modal-prod-total').textContent = `${formatPrice(total)} ${curr}`;
             document.getElementById('modal-message-text').value = messageText;
             document.getElementById('modal-messenger-link').href = messengerUrl;
 
